@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    background-color: #e0f7fa; /* Light blue background */
     margin: 0;
     padding: 0;
 }
@@ -16,7 +16,10 @@ body {
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #ff1744; /* Red color */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Shiny effect */
+    font-size: 36px; /* Larger font size */
+    margin-bottom: 20px;
 }
 
 form {
@@ -26,14 +29,47 @@ form {
     margin-bottom: 20px;
 }
 
-label {
-    font-size: 16px;
-    color: #333;
+.input-group {
+    display: flex;
+    align-items: center;
     margin-bottom: 10px;
 }
 
-input[type="file"] {
+.input-group label {
+    font-size: 16px;
+    color: #333;
+    margin-right: 10px;
+}
+
+input[type="file"], textarea {
     margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+input[type="file"] {
+    width: auto;
+}
+
+textarea {
+    width: 80%;
+}
+
+.remove-button {
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.remove-button:hover {
+    color: darkred;
+}
+
+.or {
+    margin: 10px 0;
+    font-weight: bold;
+    color: #333;
 }
 
 button {
@@ -74,14 +110,44 @@ ul, ol {
 }
 
 ul li, ol li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #007bff;
     color: white;
     padding: 10px;
     margin-bottom: 5px;
     border-radius: 4px;
     text-align: center;
+    position: relative;
+}
+
+ul li::before, ol li::before {
+    content: attr(data-index) ". ";
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+    color: white;
 }
 
 ul li {
     background-color: #6c757d;
+}
+
+.spinner {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
