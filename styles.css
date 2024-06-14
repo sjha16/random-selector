@@ -41,7 +41,7 @@ form {
     margin-right: 10px;
 }
 
-input[type="file"], textarea {
+input[type="file"], textarea, select, input[type="number"] {
     margin-bottom: 10px;
     padding: 10px;
     font-size: 16px;
@@ -51,7 +51,7 @@ input[type="file"] {
     width: auto;
 }
 
-textarea {
+textarea, select, input[type="number"] {
     width: 80%;
 }
 
@@ -151,3 +151,4 @@ ul li {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
