@@ -3,6 +3,7 @@
 <head>
     <title>BA Test Random Selector</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
@@ -11,12 +12,25 @@
             <div class="input-group">
                 <label for="fileInput">Upload Excel file:</label>
                 <input type="file" id="fileInput" accept=".xlsx, .xls">
-                <span id="removeFileButton" class="remove-button" style="display:none;">&times;</span>
+                <span id="removeFileButton" class="remove-button" style="display:none;"><i class="fas fa-times"></i></span>
             </div>
             <div class="or">OR</div>
             <div class="input-group">
                 <label for="nameInput">Enter names:</label>
                 <textarea id="nameInput" rows="5" placeholder="Enter names here..."></textarea>
+            </div>
+            <div class="input-group">
+                <label for="percentageSelect">Select percentage:</label>
+                <select id="percentageSelect">
+                    <option value="5">5%</option>
+                    <option value="10">10%</option>
+                    <option value="15">15%</option>
+                    <option value="25" selected>25%</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="numberSelect">Or specify number:</label>
+                <input type="number" id="numberSelect" placeholder="Enter number of selections">
             </div>
             <button type="submit">Submit</button>
         </form>
