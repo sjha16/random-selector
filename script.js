@@ -5,6 +5,8 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
     const nameInput = document.getElementById('nameInput').value;
+    const percentageSelect = document.getElementById('percentageSelect').value;
+    const numberSelect = document.getElementById('numberSelect').value;
 
     if (file && nameInput.trim()) {
         alert('Please use only one method: either upload a file or enter names manually.');
@@ -19,9 +21,9 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     }
 
     if (file) {
-        handleFile(file);
+        handleFile(file, percentageSelect, numberSelect);
     } else {
-        handleTextInput(nameInput);
+        handleTextInput(nameInput, percentageSelect, numberSelect);
     }
 });
 
@@ -37,7 +39,7 @@ document.getElementById('removeFileButton').addEventListener('click', function()
     document.getElementById('removeFileButton').style.display = 'none';
 });
 
-function handleFile(file) {
+function handleFile(file, percentage, number) {
     console.log('File selected:', file.name);
 
     // Show loading spinner
@@ -56,7 +58,7 @@ function handleFile(file) {
             // Assuming the first column contains the names
             const names = json.map(row => row[0]).filter(name => name);
 
-            processNames(names);
+            processNames(names, percentage, number);
         } catch (error) {
             console.error('Error processing file:', error);
             alert('An error occurred while processing the file. Please ensure it is a valid Excel file.');
@@ -74,15 +76,15 @@ function handleFile(file) {
     reader.readAsArrayBuffer(file);
 }
 
-function handleTextInput(text) {
+function handleTextInput(text, percentage, number) {
     console.log('Names entered:', text);
 
     const names = text.split('\n').map(name => name.trim()).filter(name => name);
 
-    processNames(names);
+    processNames(names, percentage, number);
 }
 
-function processNames(names) {
+function processNames(names, percentage, number) {
     if (names.length === 0) {
         alert('No valid names found.');
         return;
@@ -94,8 +96,14 @@ function processNames(names) {
     // Display all names
     displayAllNames(names);
 
-    // Shuffle and select 25%
-    const selectedPeople = selectRandom25Percent(names);
+    // Determine number of selections
+    let numToSelect = number ? parseInt(number) : Math.ceil(names.length * (percentage / 100));
+    if (numToSelect > names.length) {
+        numToSelect = names.length;
+    }
+
+    // Shuffle and select the required number
+    const selectedPeople = selectRandom(names, numToSelect);
 
     // Update selected count
     document.getElementById('selectedCount').textContent = selectedPeople.length;
@@ -104,15 +112,14 @@ function processNames(names) {
     displaySelectedPeople(selectedPeople);
 }
 
-function selectRandom25Percent(names) {
+function selectRandom(names, numToSelect) {
     // Shuffle the array
     for (let i = names.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [names[i], names[j]] = [names[j], names[i]];
     }
 
-    // Calculate 25% of the total and round up
-    const numToSelect = Math.ceil(names.length * 0.25);
+    // Select the required number
     return names.slice(0, numToSelect);
 }
 
