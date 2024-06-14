@@ -1,2 +1,2 @@
 # random-selector
-25% random selector from excel list
+25% random name selector from excel list.
